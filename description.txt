@@ -19,3 +19,17 @@ ICEBOX:
 When we are able to use databases to save users and search results, be able to authenticate users and remember their search history/ingredients.
 Save preferences
 An additional API that lists where ingredients are available for purchase
+
+Pseudo code:
+
+click event for submit button that takes the query and turns 
+it into a url to search for cocktails using that ingredient from the API
+
+for loop to create and populate buttons from the query using the cocktail names
+
+populate "your selected cocktail" with default first results
+
+js to dynamically change the selected cocktail to display the cocktail chosen by the buttons on the left
+
+for loop to create and populate cards with first 4 youtube video matches for the chosen cocktail
+
