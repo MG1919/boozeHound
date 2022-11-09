@@ -26,7 +26,6 @@
       sizes="16x16"
       href="./assets/images/favicon-16x16.png"
     />
-    <link rel="manifest" href="./assets/images/site.webmanifest" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -67,14 +66,18 @@
               <h1 class="display-5 fw-bolder m-5">
                 Search for a cocktail to make with the ingredients you have.
               </h1>
+              <!-- search button and form input -->
               <div
                 class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start"
               >
-                <a class="btn btn-primary btn-lg px-4 me-sm-3" href="#features"
+                <a
+                  id="search-btn"
+                  class="btn btn-primary btn-lg px-4 me-sm-3"
+                  href="#features"
                   >Search!</a
                 >
                 <input
-                id="lastSearch"
+                  id="lastSearch search-input"
                   class="py-3 form-control form-control-lg"
                   type="text"
                   placeholder="Enter your ingredient"
@@ -103,7 +106,12 @@
               <h2>Showing results for</h2>
               <div class="d-grid gap-2 mx-auto py-3">
                 <!-- I think these will be dynamically created with JS, but they are here to visualize for now -->
-                <button class="btn btn-primary my-2 py-3" type="button">
+              
+                <button
+                  id="history-btn"
+                  class="btn btn-primary my-2 py-3"
+                  type="button"
+                >
                   Result 1
                 </button>
                 <button class="btn btn-primary my-2 py-3" type="button">
