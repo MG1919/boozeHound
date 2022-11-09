@@ -1,3 +1,11 @@
+var info1 = $(".btn");
+var lastFive = []
+info1.on("click", function(){
+    if(lastFive.length < 5)
+    lastFive.push($("#lastSearch").val())
+    localStorage.setItem("previosSearches", lastFive);
+  })
+
 var requestUrl = "http://www.thecocktaildb.com/api/json/v1/1/filter.php?i=Gin";
 var searchButton = $("#search-btn");
 var historyButton = $("#history-btn");
