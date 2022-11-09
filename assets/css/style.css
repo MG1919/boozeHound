@@ -1,0 +1,50 @@
+:root {
+  --dark-brown: #5e2f00;
+  --med-brown: #f9ebdc;
+  --light: #f6f3f0;
+  --med-green: #b7cdbe;
+  --deep-green: #86c18c;
+}
+
+body {
+  font-family: "Josefin Sans", sans-serif;
+  background-color: var(--light);
+}
+
+.navbar {
+  background-color: var(--med-green);
+}
+
+.header {
+  background-color: var(--med-brown);
+}
+
+.header h1 {
+  color: var(--dark-brown);
+}
+
+.btn-primary {
+  background-color: var(--deep-green);
+}
+
+.cocktail h2 {
+  color: var(--dark-brown);
+}
+
+#text-logo {
+  width: 25vw;
+  min-height: 7vh;
+  min-width: 20vh;
+}
+
+#pic-logo {
+  margin-left: 5vw;
+}
+
+.footer {
+  background-color: var(--med-green);
+}
+
+.footer h3 {
+  color: var(--dark-brown);
+}
