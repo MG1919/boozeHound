@@ -1,10 +1,9 @@
 var info1 = $(".btn");
-var lastFive = []
-info1.on("click", function(){
-    if(lastFive.length < 5)
-    lastFive.push($("#lastSearch").val())
-    localStorage.setItem("previosSearches", lastFive);
-  })
+var lastFive = [];
+info1.on("click", function () {
+  if (lastFive.length < 5) lastFive.push($("#lastSearch").val());
+  localStorage.setItem("previosSearches", lastFive);
+});
 
 var requestUrl = "http://www.thecocktaildb.com/api/json/v1/1/filter.php?i=Gin";
 var searchButton = $("#search-btn");
@@ -31,9 +30,10 @@ const drinkUrl = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=";
 
 function searchDrink() {
   var ingredientnow = ingredient.val();
-  //  
+  //
   console.log(ingredientnow);
   var searchDrinkUrl = drinkUrl + ingredientnow;
+  //var searchDrinkUrl = requestUrl;
   console.log(searchDrinkUrl);
 
   $.ajax({
@@ -44,13 +44,51 @@ function searchDrink() {
     console.log(response.drinks);
     var drinks = response.drinks;
     // var resultButton = $("<button>");
+    $("#cockTailPicture").html("");
+    var imageL = $("<img>");
+    imageL.attr("src", drinks[0].strDrinkThumb);
+    $("#cockTailPicture").append(imageL);
+
     for (let i = 0; i < 5; i++) {
       console.log(drinks[i]);
+      $("#result-btn-" + (1 + i)).text(drinks[i].strDrink);
     }
+    document
+      .getElementById("result-btn-1")
+      .addEventListener("click", function () {
+        imageL.attr("src", drinks[0].strDrinkThumb);
+        $("#cockTailPicture").append(imageL);
+      });
+
+    document
+      .getElementById("result-btn-2")
+      .addEventListener("click", function () {
+        imageL.attr("src", drinks[1].strDrinkThumb);
+        $("#cockTailPicture").append(imageL);
+      });
+    document
+      .getElementById("result-btn-3")
+      .addEventListener("click", function () {
+        imageL.attr("src", drinks[2].strDrinkThumb);
+        $("#cockTailPicture").append(imageL);
+      });
+    document
+      .getElementById("result-btn-4")
+      .addEventListener("click", function () {
+        imageL.attr("src", drinks[3].strDrinkThumb);
+        $("#cockTailPicture").append(imageL);
+      });
+    document
+      .getElementById("result-btn-5")
+      .addEventListener("click", function () {
+        imageL.attr("src", drinks[4].strDrinkThumb);
+        $("#cockTailPicture").append(imageL);
+      });
   });
 }
 
 searchButton.on("click", searchDrink);
+
 // historyButton.on("click", searchDrink);
 // function () {
 //   var ingredientnow = ingredient.val() || $(this).val();
