@@ -6,7 +6,6 @@ const drinkUrl = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=";
 
 function searchDrink() {
   var ingredientnow = ingredient.val();
-  //
   console.log(ingredientnow);
   var searchDrinkUrl = drinkUrl + ingredientnow;
   console.log(searchDrinkUrl);
