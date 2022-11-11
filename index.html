@@ -104,51 +104,18 @@
         >
           <div class="row">
             <div class="col-12 col-md-6 col-lg-4">
-              <h2>Showing results for</h2>
-              <div id="returnedResultsArr" class="d-grid gap-2 mx-auto py-3">
-                <!-- I think these will be dynamically created with JS, but they are here to visualize for now -->
-
-                <button
-                  id="result-btn-1"
-                  class="btn btn-primary my-2 py-3"
-                  type="button"
-                >
-                  Result 1
-                </button>
-                <button
-                  id="result-btn-2"
-                  class="btn btn-primary my-2 py-3"
-                  type="button"
-                >
-                  Result 2
-                </button>
-                <button
-                  id="result-btn-3"
-                  class="btn btn-primary my-2 py-3"
-                  type="button"
-                >
-                  Result 3
-                </button>
-                <button
-                  id="result-btn-4"
-                  class="btn btn-primary my-2 py-3"
-                  type="button"
-                >
-                  Result 4
-                </button>
-                <button
-                  id="result-btn-5"
-                  class="btn btn-primary my-2 py-3"
-                  type="button"
-                >
-                  Result 5
-                </button>
+              <div id="results">
+                <h2 id="showing-results"></h2>
+                <div id="results-buttons" class="d-grid gap-2 mx-auto py-3">
+                  <!-- I think these will be dynamically created with JS, but they are here to visualize for now -->
+                  <!-- <button  -->
+                </div>
               </div>
             </div>
             <div id="cockTailPicture" class="col-12 col-md-6 col-lg-8">
               <div class="text-center p-5">
-                <h2>Your Selected Cocktail</h2>
-                <p>API Info for selected cocktail will appear here.</p>
+                <!-- <h2>Your Selected Cocktail</h2>
+                <p>API Info for selected cocktail will appear here.</p> -->
               </div>
             </div>
           </div>
@@ -207,6 +174,8 @@
     <footer class="container-fluid footer py-5">
       <h3 class="text-center">Here's the footer!</h3>
     </footer>
+    <script src="https://apis.google.com/js/client.js?onload=init"></script>
+    <script src="https://www.youtube.com/iframe_api"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="./assets/js/script.js"></script>
   </body>

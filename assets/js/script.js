@@ -2,6 +2,9 @@ var lastFive = [];
 var searchButton = $("#search-btn");
 var historyButton = $("#history-btn");
 var ingredient = $("#search-input");
+// parent div for results buttons
+var results = $("#results");
+var resultsButtons = $("#results-buttons");
 const drinkUrl = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=";
 
 function searchDrink() {
@@ -10,6 +13,7 @@ function searchDrink() {
   var searchDrinkUrl = drinkUrl + ingredientnow;
   console.log(searchDrinkUrl);
 
+  // queries the cocktail db API for the search ingredient
   $.ajax({
     url: searchDrinkUrl,
     method: "GET",
@@ -17,53 +21,96 @@ function searchDrink() {
   }).then(function (response) {
     console.log(response.drinks);
     var drinks = response.drinks;
-    // var resultButton = $("<button>");
+
+    // creates an image to the right and posts the first result's thumbnail
     $("#cockTailPicture").html("");
     var imageL = $("<img>");
+    imageL.addClass("rounded-3 drink-img");
     imageL.attr("src", drinks[0].strDrinkThumb);
     $("#cockTailPicture").append(imageL);
 
+    // generates h2 to show user what they searched
+    var showingResults = $("#showing-results");
+    showingResults.text("Showing results for " + ingredientnow);
+    $("#cocktailPicture").append(showingResults);
+
+    // dynamically creates buttons
     for (let i = 0; i < 5; i++) {
       console.log(drinks[i]);
-      $("#result-btn-" + (1 + i)).text(drinks[i].strDrink);
+      var newButton = $("<button>");
+      newButton.addClass("btn btn-primary my-2 py-3 result-btn");
+      newButton.attr("id", drinks[i].idDrink);
+      newButton.attr("type", "button");
+      newButton.text(drinks[i].strDrink);
+      resultsButtons.append(newButton);
+      results.append(resultsButtons);
     }
-    document
-      .getElementById("result-btn-1")
-      .addEventListener("click", function () {
-        imageL.attr("src", drinks[0].strDrinkThumb);
-        $("#cockTailPicture").append(imageL);
-      });
 
-    document
-      .getElementById("result-btn-2")
-      .addEventListener("click", function () {
-        imageL.attr("src", drinks[1].strDrinkThumb);
-        $("#cockTailPicture").append(imageL);
-      });
-    document
-      .getElementById("result-btn-3")
-      .addEventListener("click", function () {
-        imageL.attr("src", drinks[2].strDrinkThumb);
-        $("#cockTailPicture").append(imageL);
-      });
-    document
-      .getElementById("result-btn-4")
-      .addEventListener("click", function () {
-        imageL.attr("src", drinks[3].strDrinkThumb);
-        $("#cockTailPicture").append(imageL);
-      });
-    document
-      .getElementById("result-btn-5")
-      .addEventListener("click", function () {
-        imageL.attr("src", drinks[4].strDrinkThumb);
-        $("#cockTailPicture").append(imageL);
-      });
+    $(".result-btn").on("click", function () {
+      // console.log($(this).html());
+      var drinkId = $(this).attr("id");
+      var drinkName = $(this).html() + " cocktail";
+
+      for (let index = 0; index < drinks.length; index++) {
+        if (drinkId === drinks[index].idDrink) {
+          imageL.attr("src", drinks[index].strDrinkThumb);
+        }
+      }
+      execute(drinkName);
+      // cocktailInfo();
+    });
   });
 }
 
+// youtube API function loads the gapi client
+function loadClient() {
+  gapi.client.setApiKey("AIzaSyDWu797RIRANcSRSboAzwJaYGM1_jZV-0M");
+  return gapi.client
+    .load("https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest")
+    .then(
+      function () {
+        console.log("GAPI client loaded for API");
+      },
+      function (err) {
+        console.error("Error loading GAPI client for API", err);
+      }
+    );
+}
+
+loadClient();
+
+// youtube API function searches for the query object, then console logs the result
+function execute(drinkName) {
+  return gapi.client.youtube.search
+    .list({
+      q: drinkName,
+    })
+    .then(
+      function (response) {
+        // Handle the results here (response.result has the parsed body).
+        console.log("Response", response);
+      },
+      function (err) {
+        console.error("Execute error", err);
+      }
+    );
+}
+
+// function cocktailInfo() {
+//   var cocktailSearch = drinkUrl + drinkId
+
+//   $.ajax({
+//     url: cocktailSearch,
+//     method: "GET",
+//     crossDomain: true,
+//   }).then(function (response) {
+//     console.log(response.drinks);
+// });
+// }
+
+// these things happen when the search button is clicked
 searchButton.on("click", function () {
-  console.log("goodjob");
-  console.log($("#search-input").val());
+  resultsButtons.html("");
   console.log(lastFive.length);
   lastFive.push($("#search-input").val());
 localStorage.setItem("previousSearches", lastFive);
@@ -73,8 +120,11 @@ for (i=0; i<lastFive.length;i++) {
     lastFive.splice(i,1)
 
   }
-} console.log(lastFive)
-searchDrink();
+
+  //   runs function to search the API
+  searchDrink();
+  ingredient.val("");
+
 });
 
 
