@@ -63,3 +63,7 @@ body {
 .footer h3 {
   color: var(--dark-brown);
 }
+
+#hidden {
+  display: none;
+}

@@ -7,6 +7,13 @@ var results = $("#results");
 var resultsButtons = $("#results-buttons");
 const drinkUrl = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=";
 
+// Set a same-site cookie for first-party contexts
+document.cookie = 'cookie1=value1; SameSite=Lax';
+// Set a cross-site cookie for third-party contexts
+document.cookie = 'cookie2=value2; SameSite=None; Secure';
+
+
+
 function searchDrink() {
   var ingredientnow = ingredient.val();
   console.log(ingredientnow);
@@ -57,7 +64,7 @@ function searchDrink() {
         }
       }
       execute(drinkName);
-      // cocktailInfo();
+      // onYouTubeIframeAPIReady();
     });
   });
 }
@@ -89,6 +96,12 @@ function execute(drinkName) {
       function (response) {
         // Handle the results here (response.result has the parsed body).
         console.log("Response", response);
+        console.log(response.result.items[0].id.videoId);
+        var vidResult = response.result.items[0].id.videoId;
+        var youtube = "https://www.youtube.com/embed/";
+        var vidUrl = youtube + vidResult;
+        $("#player").attr("src", vidUrl);
+        $("#player").show();
       },
       function (err) {
         console.error("Execute error", err);
@@ -96,6 +109,25 @@ function execute(drinkName) {
     );
 }
 
+// var player;
+// function onYouTubeIframeAPIReady(result) {
+//   player = new YT.Player("player", {
+//     height: "390",
+//     width: "640",
+//     // insert variable video id from results
+//     videoId: "nGdv-3wXfmc",
+//     playerVars: {
+//       playsinline: 1,
+//     },
+//     events: {
+//       // onReady: onPlayerReady,
+//     },
+//   });
+// }
+
+// function onPlayerReady(event) {
+//   event.target.playVideo();
+// }
 // function cocktailInfo() {
 //   var cocktailSearch = drinkUrl + drinkId
 
@@ -121,4 +153,5 @@ searchButton.on("click", function () {
   //   runs function to search the API
   searchDrink();
   ingredient.val("");
+  $("#player").hide();
 });
