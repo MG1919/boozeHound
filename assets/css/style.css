@@ -4,6 +4,7 @@
   --light: #f6f3f0;
   --med-green: #b7cdbe;
   --deep-green: #86c18c;
+  --deeper-green: #5dac65;
 }
 
 body {
@@ -25,10 +26,24 @@ body {
 
 .btn-primary {
   background-color: var(--deep-green);
+  border-color: var(--deeper-green);
+}
+
+.btn-primary:hover {
+  background-color: var(--deeper-green);
+}
+
+.btn-primary:focus {
+  background-color: var(--deeper-green);
 }
 
 .cocktail h2 {
   color: var(--dark-brown);
+}
+
+.drink-img {
+  height: 250px;
+  width: 250px;
 }
 
 #text-logo {

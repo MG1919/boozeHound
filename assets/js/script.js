@@ -13,6 +13,7 @@ function searchDrink() {
   var searchDrinkUrl = drinkUrl + ingredientnow;
   console.log(searchDrinkUrl);
 
+  // queries the cocktail db API for the search ingredient
   $.ajax({
     url: searchDrinkUrl,
     method: "GET",
@@ -24,7 +25,7 @@ function searchDrink() {
     // creates an image to the right and posts the first result's thumbnail
     $("#cockTailPicture").html("");
     var imageL = $("<img>");
-    imageL.addClass("rounded-3");
+    imageL.addClass("rounded-3 drink-img");
     imageL.attr("src", drinks[0].strDrinkThumb);
     $("#cockTailPicture").append(imageL);
 
@@ -39,39 +40,77 @@ function searchDrink() {
       var newButton = $("<button>");
       newButton.addClass("btn btn-primary my-2 py-3 result-btn");
       newButton.attr("id", drinks[i].idDrink);
+      newButton.attr("type", "button");
       newButton.text(drinks[i].strDrink);
       resultsButtons.append(newButton);
       results.append(resultsButtons);
     }
 
     $(".result-btn").on("click", function () {
-      console.log($(this).html());
+      // console.log($(this).html());
       var drinkId = $(this).attr("id");
-      console.log(drinkId);
+      var drinkName = $(this).html() + " cocktail";
 
       for (let index = 0; index < drinks.length; index++) {
         if (drinkId === drinks[index].idDrink) {
           imageL.attr("src", drinks[index].strDrinkThumb);
         }
       }
-      // drinkImage = this.text.value;
-      // console.log(drinkImage);
-      // imageL.attr("src", $(this).drinks[position].strDrinkThumb);
-      // $("#cockTailPicture").append(imageL);
+      execute(drinkName);
+      // cocktailInfo();
     });
-    // document
-    //   .getElementById("result-btn-1")
-    //   .addEventListener("click", function () {
-    //     imageL.attr("src", drinks[0].strDrinkThumb);
-    //     $("#cockTailPicture").append(imageL);
-    //   });
   });
 }
 
+// youtube API function loads the gapi client
+function loadClient() {
+  gapi.client.setApiKey("AIzaSyDWu797RIRANcSRSboAzwJaYGM1_jZV-0M");
+  return gapi.client
+    .load("https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest")
+    .then(
+      function () {
+        console.log("GAPI client loaded for API");
+      },
+      function (err) {
+        console.error("Error loading GAPI client for API", err);
+      }
+    );
+}
+
+loadClient();
+
+// youtube API function searches for the query object, then console logs the result
+function execute(drinkName) {
+  return gapi.client.youtube.search
+    .list({
+      q: drinkName,
+    })
+    .then(
+      function (response) {
+        // Handle the results here (response.result has the parsed body).
+        console.log("Response", response);
+      },
+      function (err) {
+        console.error("Execute error", err);
+      }
+    );
+}
+
+// function cocktailInfo() {
+//   var cocktailSearch = drinkUrl + drinkId
+
+//   $.ajax({
+//     url: cocktailSearch,
+//     method: "GET",
+//     crossDomain: true,
+//   }).then(function (response) {
+//     console.log(response.drinks);
+// });
+// }
+
+// these things happen when the search button is clicked
 searchButton.on("click", function () {
   resultsButtons.html("");
-  console.log("goodjob");
-  console.log($("#search-input").val());
   console.log(lastFive.length);
   //   adds ingredient to lastFive array, saves to localstorage
   if (lastFive.length < 5) {
