@@ -65,12 +65,16 @@ searchButton.on("click", function () {
   console.log("goodjob");
   console.log($("#search-input").val());
   console.log(lastFive.length);
-  //   adds ingredient to lastFive array, saves to localstorage
-  if (lastFive.length < 5) {
-    lastFive.push($("#search-input").val());
-    localStorage.setItem("previousSearches", lastFive);
-    console.log(lastFive);
+  lastFive.push($("#search-input").val());
+localStorage.setItem("previousSearches", lastFive);
+for (i=0; i<lastFive.length;i++) {
+  if (lastFive.length > 4 ){
+
+    lastFive.splice(i,1)
+
   }
-  //   runs function to search the API
-  searchDrink();
+} console.log(lastFive)
+searchDrink();
 });
+
+
