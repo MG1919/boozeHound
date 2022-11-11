@@ -119,12 +119,12 @@ for (i=0; i<lastFive.length;i++) {
 
     lastFive.splice(i,1)
 
-  }
+  }}
 
   //   runs function to search the API
+  console.log(lastFive);
   searchDrink();
   ingredient.val("");
-
-});
+})
 
 
