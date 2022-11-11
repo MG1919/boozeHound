@@ -145,6 +145,7 @@ searchButton.on("click", function () {
   resultsButtons.html("");
   console.log(lastFive.length);
   lastFive.push($("#search-input").val());
+
   localStorage.setItem("previousSearches", lastFive);
   for (i = 0; i < lastFive.length; i++) {
     if (lastFive.length > 4) {
@@ -152,9 +153,11 @@ searchButton.on("click", function () {
     }
   }
 
+
   //   runs function to search the API
   console.log(lastFive);
   searchDrink();
   ingredient.val("");
+
   $("#player").hide();
 });
