@@ -8,14 +8,12 @@ var resultsButtons = $("#results-buttons");
 const drinkUrl = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=";
 
 // Set a same-site cookie for first-party contexts
-document.cookie = 'cookie1=value1; SameSite=Lax';
+document.cookie = "cookie1=value1; SameSite=Lax";
 // Set a cross-site cookie for third-party contexts
-document.cookie = 'cookie2=value2; SameSite=None; Secure';
-
-
+document.cookie = "cookie2=value2; SameSite=None; Secure";
 
 function searchDrink(ing) {
-  console.log(ing)  
+  console.log(ing);
   var ingredientnow = ing == undefined ? ingredient.val() : ing;
   console.log(ingredientnow);
   var searchDrinkUrl = drinkUrl + ingredientnow;
@@ -29,6 +27,18 @@ function searchDrink(ing) {
   }).then(function (response) {
     console.log(response.drinks);
     var drinks = response.drinks;
+
+    if (typeof drinks === "undefined") {
+      console.log("retuned undefined");
+      var noResultsModal = document.getElementById("myModal");
+
+      noResultsModal.style.display = "block";
+    }
+    // set element on the close button
+      var spanClose = $(".close")[0];
+    spanClose.onclick = function () {
+      noResultsModal.style.display = "none";
+    };
 
     // creates an image to the right and posts the first result's thumbnail
     $("#cockTailPicture").html("");
@@ -75,17 +85,19 @@ function searchDrink(ing) {
 function loadClient() {
   gapi.client.setApiKey("AIzaSyA52DL0M4m6LWbgpIzgJ40XsM83V2c_--c");
   console.log(gapi.client);
-  return gapi.client
-    .load("https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest")
-    // .load('youtube', 'v3', resolve)
-    .then(
-      function () {
-        console.log("GAPI client loaded for API");
-      },
-      function (err) {
-        console.error("Error loading GAPI client for API", err);
-      }
-    );
+  return (
+    gapi.client
+      .load("https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest")
+      // .load('youtube', 'v3', resolve)
+      .then(
+        function () {
+          console.log("GAPI client loaded for API");
+        },
+        function (err) {
+          console.error("Error loading GAPI client for API", err);
+        }
+      )
+  );
 }
 
 gapi.load("client", loadClient);
@@ -156,17 +168,12 @@ searchButton.on("click", function () {
     if (lastFive.length > 4) {
       lastFive.splice(i, 1);
     }
-    
   }
 
-  
   // function littleButtons() {
   //   searchDrink(lastFive[i]);
   //   resultsButtons.html("");
   // }
-
-
-
 
   //   runs function to search the API
   console.log(lastFive);
@@ -177,14 +184,11 @@ searchButton.on("click", function () {
 
   $("#lastSearchButtons").empty();
   for (i = 0; i < lastFive.length; i++) {
-  var button = document.createElement("button");
-  
-  button.textContent = lastFive[i];
-  $("#lastSearchButtons").append(button);
-  button.setAttribute("onclick", `searchDrink("${lastFive[i]}")`);
-  //  button.setAttribute("onclick", "littleButtons()");
-    
+    var button = document.createElement("button");
+
+    button.textContent = lastFive[i];
+    $("#lastSearchButtons").append(button);
+    button.setAttribute("onclick", `searchDrink("${lastFive[i]}")`);
+    //  button.setAttribute("onclick", "littleButtons()");
   }
-
 });
-
