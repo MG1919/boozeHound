@@ -35,7 +35,7 @@ Click on one of the 5 results to recieve a YouTube Video on how to make the cock
 ## Links
 
 Website
-http://mg1919.github.io/boozehound
+https://mg1919.github.io/boozeHound/
 
 APIs
 https://www.thecocktaildb.com/
