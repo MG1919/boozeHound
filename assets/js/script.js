@@ -54,7 +54,7 @@ function searchDrink(ing) {
 
     resultsButtons.html("");
     // dynamically creates buttons
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < drinks.length && i < 5; i++) {
       console.log(drinks[i]);
       var newButton = $("<button>");
       newButton.addClass("btn btn-primary my-2 py-3 result-btn");
