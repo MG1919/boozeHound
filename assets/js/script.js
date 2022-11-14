@@ -14,8 +14,9 @@ document.cookie = 'cookie2=value2; SameSite=None; Secure';
 
 
 
-function searchDrink() {
-  var ingredientnow = ingredient.val();
+function searchDrink(ing) {
+  console.log(ing)  
+  var ingredientnow = ing == undefined ? ingredient.val() : ing;
   console.log(ingredientnow);
   var searchDrinkUrl = drinkUrl + ingredientnow;
   console.log(searchDrinkUrl);
@@ -41,6 +42,7 @@ function searchDrink() {
     showingResults.text("Showing results for " + ingredientnow);
     $("#cocktailPicture").append(showingResults);
 
+    resultsButtons.html("");
     // dynamically creates buttons
     for (let i = 0; i < 5; i++) {
       console.log(drinks[i]);
@@ -71,9 +73,11 @@ function searchDrink() {
 
 // youtube API function loads the gapi client
 function loadClient() {
-  gapi.client.setApiKey("AIzaSyDWu797RIRANcSRSboAzwJaYGM1_jZV-0M");
+  gapi.client.setApiKey("AIzaSyA52DL0M4m6LWbgpIzgJ40XsM83V2c_--c");
+  console.log(gapi.client);
   return gapi.client
     .load("https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest")
+    // .load('youtube', 'v3', resolve)
     .then(
       function () {
         console.log("GAPI client loaded for API");
@@ -84,7 +88,8 @@ function loadClient() {
     );
 }
 
-loadClient();
+gapi.load("client", loadClient);
+// loadClient();
 
 // youtube API function searches for the query object, then console logs the result
 function execute(drinkName) {
@@ -151,7 +156,16 @@ searchButton.on("click", function () {
     if (lastFive.length > 4) {
       lastFive.splice(i, 1);
     }
+    
   }
+
+  
+  // function littleButtons() {
+  //   searchDrink(lastFive[i]);
+  //   resultsButtons.html("");
+  // }
+
+
 
 
   //   runs function to search the API
@@ -160,4 +174,17 @@ searchButton.on("click", function () {
   ingredient.val("");
 
   $("#player").hide();
+
+  $("#lastSearchButtons").empty();
+  for (i = 0; i < lastFive.length; i++) {
+  var button = document.createElement("button");
+  
+  button.textContent = lastFive[i];
+  $("#lastSearchButtons").append(button);
+  button.setAttribute("onclick", `searchDrink("${lastFive[i]}")`);
+  //  button.setAttribute("onclick", "littleButtons()");
+    
+  }
+
 });
+
