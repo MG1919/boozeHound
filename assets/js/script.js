@@ -12,6 +12,7 @@ document.cookie = "cookie1=value1; SameSite=Lax";
 // Set a cross-site cookie for third-party contexts
 document.cookie = "cookie2=value2; SameSite=None; Secure";
 
+// this function queries the cocktail db, then displays the picture and first five cocktails relevant to chosen ingredient, then executes the youtube search function
 function searchDrink(ing) {
   console.log(ing);
   var ingredientnow = ing == undefined ? ingredient.val() : ing;
@@ -75,8 +76,8 @@ function searchDrink(ing) {
           imageL.attr("src", drinks[index].strDrinkThumb);
         }
       }
+      // execute youtube data search using drink name pulled from button html
       execute(drinkName);
-      // onYouTubeIframeAPIReady();
     });
   });
 }
@@ -100,6 +101,7 @@ function loadClient() {
   );
 }
 
+// uses the youtube api functions to load the client synchronously
 gapi.load("client", loadClient);
 // loadClient();
 
@@ -126,37 +128,6 @@ function execute(drinkName) {
     );
 }
 
-// var player;
-// function onYouTubeIframeAPIReady(result) {
-//   player = new YT.Player("player", {
-//     height: "390",
-//     width: "640",
-//     // insert variable video id from results
-//     videoId: "nGdv-3wXfmc",
-//     playerVars: {
-//       playsinline: 1,
-//     },
-//     events: {
-//       // onReady: onPlayerReady,
-//     },
-//   });
-// }
-
-// function onPlayerReady(event) {
-//   event.target.playVideo();
-// }
-// function cocktailInfo() {
-//   var cocktailSearch = drinkUrl + drinkId
-
-//   $.ajax({
-//     url: cocktailSearch,
-//     method: "GET",
-//     crossDomain: true,
-//   }).then(function (response) {
-//     console.log(response.drinks);
-// });
-// }
-
 // these things happen when the search button is clicked
 searchButton.on("click", function () {
   resultsButtons.html("");
@@ -170,11 +141,6 @@ searchButton.on("click", function () {
     }
   }
 
-  // function littleButtons() {
-  //   searchDrink(lastFive[i]);
-  //   resultsButtons.html("");
-  // }
-
   //   runs function to search the API
   console.log(lastFive);
   searchDrink();
@@ -185,10 +151,9 @@ searchButton.on("click", function () {
   $("#lastSearchButtons").empty();
   for (i = 0; i < lastFive.length; i++) {
     var button = document.createElement("button");
-
+    button.setAttribute("class", )
     button.textContent = lastFive[i];
     $("#lastSearchButtons").append(button);
     button.setAttribute("onclick", `searchDrink("${lastFive[i]}")`);
-    //  button.setAttribute("onclick", "littleButtons()");
   }
 });
